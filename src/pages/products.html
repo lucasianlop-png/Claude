@@ -1,0 +1,51 @@
+<!--
+title: Products
+description: Printable templates and tools for bars are on the way. Join the list and you'll hear first.
+path: /products/
+nav: products
+-->
+<section class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Products · Coming soon</p>
+    <h1>Tools for the <em>back</em> bar</h1>
+    <p class="lede">Nothing for sale just yet. I'm building a small range of templates and goods for bars, made by someone who actually works behind one. Get on the list and you'll hear first.</p>
+  </div>
+</section>
+
+<!-- Product list. Filled from /data/products.js. While that list is empty, the "coming soon" block below shows. -->
+<section class="section-tight" id="products" hidden>
+  <div class="wrap">
+    <div class="product-grid" data-products></div>
+    <p class="muted" style="margin-top:22px;font-size:14px">Prices in AUD. You'll check out on the seller's platform (for example Etsy or Payhip), not on this site.</p>
+  </div>
+</section>
+
+<section class="section-tight" id="coming-soon">
+  <div class="wrap">
+    <div class="coming">
+      <article class="card reveal">
+        <img class="fig" src="/assets/img/fig/recipe-card.png" width="56" height="56" alt="">
+        <h3>Bar templates</h3>
+        <p>Printable spec cards, prep labels and checklists that follow one clear format, so every recipe in your bar reads the same way.</p>
+      </article>
+      <article class="card reveal d1">
+        <img class="fig" src="/assets/img/fig/coupe.png" width="56" height="56" alt="">
+        <h3>Merch for the trade</h3>
+        <p>Original designs for people who work the bar, printed on demand.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section on-green">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Be first in line</p>
+      <h2>Hear when the <em>shop</em> opens</h2>
+      <p class="lede" style="color:inherit">Subscribers get the launch news first, plus the weekly newsletter. Free, every Tuesday.</p>
+    </div>
+    <div>
+      {{> subscribe}}
+    </div>
+  </div>
+</section>
