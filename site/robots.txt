@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://offthebinder.com/sitemap.xml
+Sitemap: https://www.offthebinder.com/sitemap.xml

@@ -19,55 +19,37 @@ Guía para Lucas. Se hace una sola vez. Nada llega a offthebinder.com hasta que 
 
 ## 1. Conectar Cloudflare Pages al repo (una sola vez, desde el panel)
 
-1. Entrá a dash.cloudflare.com → **Workers & Pages** → **Create** → pestaña **Pages** → **Connect to Git**.
-2. Autorizá la app de Cloudflare en GitHub y elegí solo el repo de la web.
-3. Configuración del build:
+Tiene que ser un proyecto de **Pages**, no de Workers: con el DNS en Porkbun (opción A), un Worker no puede usar www.offthebinder.com, porque los dominios propios de Workers exigen que el DNS esté en Cloudflare. Pages sí acepta un CNAME desde Porkbun.
+
+1. dash.cloudflare.com → **Workers & Pages** → **Create application**. Abajo de todo: **"Looking to deploy Pages? Get started"** → **Import an existing Git repository**.
+2. Elegí `lucasianlop-png/off-the-binder-web`.
+3. Configuración:
+   - Project name: `off-the-binder-web` (si está tomado por el Worker, borrá el Worker primero o usá `offthebinder`)
    - Production branch: `main`
    - Framework preset: `None`
    - Build command: *(vacío)*
    - Build output directory: `site`
-4. **Save and Deploy**. Te queda una URL tipo `off-the-binder-web.pages.dev`.
-5. En **Settings → Builds & deployments → Preview deployments**: dejar "All non-production branches" activado, así cada rama tiene su link de preview.
+4. **Save and Deploy**. Te queda `https://<proyecto>.pages.dev`.
+5. Settings → Builds → **Preview deployments: All non-production branches**. Cada rama da un link `https://<rama>.<proyecto>.pages.dev`.
+6. Borrá el Worker `off-the-binder-web` que quedó creado (Settings → Delete), así no falla un build en cada push.
 
-Costo: USD 0 (plan Free de Pages: 500 builds por mes, 1 build a la vez).
+Costo: USD 0 (plan Free de Pages: 500 builds por mes).
 
-## 2. Dominio: dos caminos (decisión tuya)
+## 2. Dominio: opción A (elegida). El DNS queda en Porkbun, la web va en www
 
-Cloudflare Pages solo acepta el dominio raíz (`offthebinder.com`, sin www) si el DNS del dominio está en Cloudflare. Un subdominio (`www.`) funciona con un CNAME, sin mover el DNS.
+No se toca ningún registro de Google (MX, SPF, DKIM, DMARC).
 
-### Opción A (recomendada): DNS queda en Porkbun, la web va en www
+1. En Cloudflare Pages → tu proyecto → **Custom domains** → **Set up a domain** → `www.offthebinder.com`. **Primero en Pages, después en Porkbun** (al revés no resuelve). Hacelo recién cuando apruebes publicar.
+2. En Porkbun → Domain Management → DNS, agregá:
 
-No toca ni un registro de Google. Riesgo para el mail: cero.
+| Tipo  | Host  | Respuesta                  | TTL |
+|-------|-------|----------------------------|-----|
+| CNAME | `www` | `<proyecto>.pages.dev`     | 600 |
 
-En Cloudflare Pages → tu proyecto → **Custom domains** → **Set up a domain** → `www.offthebinder.com`. Cloudflare te muestra el CNAME a cargar. **Primero se agrega el dominio en Pages, después el registro en Porkbun** (al revés no resuelve).
+3. Para que `offthebinder.com` (sin www) lleve a la web: Porkbun → **URL Forwarding** en el dominio raíz → `https://www.offthebinder.com`, tipo **Permanent (301)**, con "include path".
+4. Si Porkbun avisa de conflicto, borrá **solo** sus registros por defecto (`ALIAS`/`A` del raíz a `pixie.porkbun.com` y el CNAME comodín `*`). **Nunca MX ni TXT.**
 
-Registros a cargar en Porkbun → Domain Management → DNS:
-
-| Tipo  | Host  | Respuesta                         | TTL |
-|-------|-------|-----------------------------------|-----|
-| CNAME | `www` | `<tu-proyecto>.pages.dev`         | 600 |
-
-Y para que `offthebinder.com` (sin www) lleve a la web:
-
-- Porkbun → **URL Forwarding** sobre el dominio raíz → destino `https://www.offthebinder.com`, tipo **Permanent (301)**, "include path" activado.
-- Si Porkbun avisa de conflicto: borrar solo los registros por defecto de Porkbun (`ALIAS` o `A` del raíz apuntando a `pixie.porkbun.com`, y el CNAME comodín `*`). **No borrar MX ni TXT.**
-
-Con esta opción, el sitio canónico pasa a ser `https://www.offthebinder.com` (hay que cambiar una línea en `tools/build.py`, `SITE_URL`, y en `src/partials/head.html` la imagen OG; lo hago yo cuando confirmes).
-
-### Opción B: mover el DNS a Cloudflare (dominio raíz sin www)
-
-Más prolijo a largo plazo, pero hay que copiar a mano los registros de Google y cambiar nameservers. Si se escapa uno, el mail deja de llegar.
-
-1. Cloudflare → **Add a domain** → `offthebinder.com` → plan Free. Cloudflare escanea los registros actuales.
-2. Antes de cambiar nameservers, comparar uno por uno con Porkbun y verificar que estén iguales:
-   - MX de Google (el que te dio Workspace).
-   - TXT SPF en el raíz (`v=spf1 include:_spf.google.com ~all`, o el que tengas).
-   - TXT DKIM en `google._domainkey`.
-   - TXT DMARC en `_dmarc`.
-   - TXT de verificación de Google (`google-site-verification=...`), si existe.
-   - Todos en **DNS only** (nube gris), no proxied.
-3. En Porkbun → Authoritative Nameservers → poner los 2 de Cloudflare.
-4. En Pages → Custom domains → `offthebinder.com` y `www.offthebinder.com`.
+El sitio canónico es `https://www.offthebinder.com` (ya configurado en `tools/build.py`).
 
 ## 3. Subdominios previstos
 

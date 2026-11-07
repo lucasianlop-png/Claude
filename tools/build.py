@@ -19,7 +19,7 @@ import re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 OUT = ROOT / "site"
-SITE_URL = "https://offthebinder.com"
+SITE_URL = "https://www.offthebinder.com"
 
 META_RE = re.compile(r"^\s*<!--(.*?)-->", re.S)
 
