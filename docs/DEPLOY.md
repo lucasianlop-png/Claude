@@ -29,7 +29,7 @@ Tiene que ser un proyecto de **Pages**, no de Workers: con el DNS en Porkbun (op
    - Framework preset: `None`
    - Build command: *(vacío)*
    - Build output directory: `site`
-4. **Save and Deploy**. Te queda `https://<proyecto>.pages.dev`.
+4. **Save and Deploy**. Quedó en `https://off-the-binder-web.pages.dev`.
 5. Settings → Builds → **Preview deployments: All non-production branches**. Cada rama da un link `https://<rama>.<proyecto>.pages.dev`.
 6. Borrá el Worker `off-the-binder-web` que quedó creado (Settings → Delete), así no falla un build en cada push.
 
@@ -44,7 +44,7 @@ No se toca ningún registro de Google (MX, SPF, DKIM, DMARC).
 
 | Tipo  | Host  | Respuesta                  | TTL |
 |-------|-------|----------------------------|-----|
-| CNAME | `www` | `<proyecto>.pages.dev`     | 600 |
+| CNAME | `www` | `off-the-binder-web.pages.dev` | 600 |
 
 3. Para que `offthebinder.com` (sin www) lleve a la web: Porkbun → **URL Forwarding** en el dominio raíz → `https://www.offthebinder.com`, tipo **Permanent (301)**, con "include path".
 4. Si Porkbun avisa de conflicto, borrá **solo** sus registros por defecto (`ALIAS`/`A` del raíz a `pixie.porkbun.com` y el CNAME comodín `*`). **Nunca MX ni TXT.**

@@ -289,3 +289,8 @@ section { position: relative; }
 .subscribe-embed .subscribe-fallback a { color: var(--verde-botella); }
 .on-green .subscribe-embed .subscribe-fallback { color: var(--salvia); }
 .on-green .subscribe-embed .subscribe-fallback a { color: var(--papel-crema); }
+
+/* Brand figures (destello) used as images */
+img.sparkle { width: 26px; height: auto; color: initial; }
+img.sparkle.s3 { width: 16px; }
+img.ribbon-star { width: 18px; height: auto; }
