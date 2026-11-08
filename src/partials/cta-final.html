@@ -1,0 +1,18 @@
+<section class="section on-green cta-final" id="join">
+  <div class="wrap cta-final-grid">
+    <div>
+      {{#if waitlist}}
+      <p class="eyebrow">Early access</p>
+      <h2>Be first when it <em>opens</em>.</h2>
+      <p class="lede">Join the waitlist. You'll get the free Recipe system audit checklist now, and the weekly newsletter until launch.</p>
+      {{else}}
+      <p class="eyebrow">{{v:PRODUCT_NAME}}</p>
+      <h2>Get your recipes <em>off</em> the binder.</h2>
+      <p class="lede">One system, every spec, on every phone behind the bar.</p>
+      <p>{{> cta-button}}</p>
+      <p class="muted">Not ready? Get the newsletter instead:</p>
+      {{/if}}
+    </div>
+    <div>{{> subscribe}}</div>
+  </div>
+</section>

@@ -1,3 +1,5 @@
 /subscribe   /newsletter/   301
-/shop        /products/     301
+/shop        /merch/        301
 /bars        https://bars.offthebinder.com   301
+/products    /merch/        301
+/products/   /merch/        301

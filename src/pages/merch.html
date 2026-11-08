@@ -1,0 +1,26 @@
+<!--
+title: Merch
+description: Original tees and posters for people who work the bar, from Off the Binder.
+path: /merch/
+nav: merch
+-->
+<section class="page-head">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Merch{{#if LINK_MERCH}}{{else}} · Coming {{v:MERCH_LAUNCH}}{{/if}}</p>
+      <h1>Wear the <em>trade</em>.</h1>
+      <p class="lede">Original tees and posters for people who work the bar. Linocut designs, printed on demand.</p>
+      {{#if LINK_MERCH}}
+      <p><a class="btn btn-primary" href="{{v:LINK_MERCH}}" rel="noopener" data-track="merch">Shop merch ↗</a></p>
+      {{else}}
+      <p>The shop opens on {{v:MERCH_LAUNCH}}. Join the list below and you'll hear first.</p>
+      {{/if}}
+    </div>
+    <div class="merch-hero-figs" aria-hidden="true">
+      <img class="float f1" src="/assets/img/fig/coupe.png" width="110" height="116" alt="">
+      <img class="float f2" src="/assets/img/fig/shaker.png" width="70" height="118" alt="">
+      <img class="float f3" src="/assets/img/fig/cherry.png" width="88" height="110" alt="">
+    </div>
+  </div>
+</section>
+{{> cta-final}}

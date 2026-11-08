@@ -12,7 +12,13 @@ description: One sentence for search and social cards.
 path: /newsletter/
 nav: newsletter
 -->
+
+Template features (pages and partials):
+  {{> name}}                 include src/partials/name.html
+  {{v:NAME}}                 value from src/config.json; empty -> visible [NAME] placeholder
+  {{#if flag}}A{{else}}B{{/if}}   flags: waitlist, on_sale, or any config key that is non-empty
 """
+import json
 import pathlib
 import re
 
@@ -22,6 +28,43 @@ OUT = ROOT / "site"
 SITE_URL = "https://www.offthebinder.com"
 
 META_RE = re.compile(r"^\s*<!--(.*?)-->", re.S)
+IF_RE = re.compile(r"\{\{#if ([\w-]+)\}\}((?:(?!\{\{#if ).)*?)\{\{/if\}\}", re.S)
+missing = set()
+
+
+def load_config():
+    cfg = json.loads((SRC / "config.json").read_text())
+    cfg.pop("_help", None)
+    flags = {k: bool(str(v).strip()) for k, v in cfg.items()}
+    flags["waitlist"] = cfg.get("STATE") == "waitlist"
+    flags["on_sale"] = cfg.get("STATE") == "on_sale"
+    return cfg, flags
+
+
+def render(text, cfg, flags):
+    text = re.sub(r"\{\{>\s*([\w-]+)\s*\}\}",
+                  lambda m: render((SRC / "partials" / f"{m.group(1)}.html").read_text().strip("\n"), cfg, flags),
+                  text)
+
+    def cond(m):
+        body = m.group(2)
+        yes, _, no = body.partition("{{else}}")
+        return yes if flags.get(m.group(1), False) else no
+
+    prev = None
+    while prev != text:  # resolve innermost blocks first, allows nesting
+        prev = text
+        text = IF_RE.sub(cond, text)
+
+    def var(m):
+        name = m.group(1)
+        val = str(cfg.get(name, "")).strip()
+        if not val:
+            missing.add(name)
+            return f'<mark class="ph">[{name}]</mark>'
+        return val
+
+    return re.sub(r"\{\{v:([\w-]+)\}\}", var, text)
 
 
 def parse(text):
@@ -37,16 +80,13 @@ def parse(text):
 
 
 def main():
+    cfg, flags = load_config()
     head = (SRC / "partials/head.html").read_text()
     header = (SRC / "partials/header.html").read_text()
     footer = (SRC / "partials/footer.html").read_text()
     urls = []
     for page in sorted((SRC / "pages").glob("*.html")):
         meta, body = parse(page.read_text())
-        # Partial includes: {{> subscribe}} pulls in src/partials/subscribe.html
-        body = re.sub(r"\{\{>\s*([\w-]+)\s*\}\}",
-                      lambda m: (SRC / "partials" / f"{m.group(1)}.html").read_text().strip("\n"),
-                      body)
         path = meta.get("path", "/")
         nav = meta.get("nav", "")
         h = header
@@ -61,11 +101,12 @@ def main():
             .replace("{{robots}}", meta.get("robots", "index, follow"))
             + h + "\n<main id=\"main\">\n" + body + "\n</main>\n" + footer
         )
+        html = render(html, cfg, flags)
         if path == "/404":
             target = OUT / "404.html"
         else:
             target = OUT / path.strip("/") / "index.html"
-            if meta.get("robots", "").startswith("index") or "robots" not in meta:
+            if not meta.get("robots", "").startswith("noindex"):
                 urls.append(path)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html)
@@ -78,6 +119,8 @@ def main():
     sitemap.append("</urlset>")
     (OUT / "sitemap.xml").write_text("\n".join(sitemap) + "\n")
     print("built site/sitemap.xml")
+    if missing:
+        print("\nPLACEHOLDERS SHOWING (fill in src/config.json before publishing):", ", ".join(sorted(missing)))
 
 
 if __name__ == "__main__":

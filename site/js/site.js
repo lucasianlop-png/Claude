@@ -32,6 +32,54 @@
     reveals.forEach(function (el) { io.observe(el); });
   }
 
+
+  // Sticky CTA on mobile: shows once the hero CTA scrolls away, hides at the final CTA
+  var sticky = document.querySelector('[data-sticky-cta]');
+  var heroCta = document.querySelector('[data-hero-cta]');
+  var join = document.getElementById('join');
+  if (sticky && 'IntersectionObserver' in window) {
+    var heroVisible = !!heroCta, joinVisible = false;
+    var update = function () { sticky.classList.toggle('is-on', !heroVisible && !joinVisible); };
+    if (heroCta) new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); }).observe(heroCta);
+    if (join) new IntersectionObserver(function (e) { joinVisible = e[0].isIntersecting; update(); }).observe(join);
+    update();
+  }
+
+  // Before / after: the "after" image wipes over the "before" as you scroll
+  var ba = document.querySelector('[data-ba]');
+  if (ba && !reduce) {
+    var onScroll = function () {
+      var r = ba.getBoundingClientRect(), vh = window.innerHeight;
+      var t = (vh - r.top) / (vh + r.height);           // 0 when entering, 1 when leaving
+      var pct = Math.max(0, Math.min(1, (t - 0.25) / 0.45));
+      ba.style.setProperty('--reveal', (100 - pct * 100).toFixed(1) + '%');
+    };
+    ba.style.setProperty('--reveal', '100%');
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Demo spec card: scale quantities, keep the 9-character quantity column
+  var demo = document.querySelector('[data-demo]');
+  if (demo) {
+    var base = [[60, 'ml', 'White Rum'], [30, 'ml', 'Lime Juice'], [20, 'ml', 'Sugar Syrup 1:1']];
+    var pre = demo.querySelector('[data-spec]');
+    var fmt = function (q, u) {
+      if (u === 'ml' && q >= 1000) return (Math.round(q / 100) / 10) + 'L';
+      return q + u;
+    };
+    demo.querySelectorAll('[data-serves]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var n = parseInt(btn.getAttribute('data-serves'), 10);
+        demo.querySelectorAll('[data-serves]').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        pre.textContent = base.map(function (r) {
+          var q = fmt(r[0] * n, r[1]);
+          return (q + '         ').slice(0, 9) + r[2];
+        }).join('\n');
+      });
+    });
+  }
+
   // Products page: render the list from /data/products.js
   var grid = document.querySelector('[data-products]');
   if (grid) {

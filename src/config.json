@@ -1,0 +1,13 @@
+{
+  "_help": "Variables for the site. Empty string = not set yet: the page shows a visible [PLACEHOLDER] and the build warns. STATE is 'waitlist' or 'on_sale'.",
+  "STATE": "waitlist",
+  "PRODUCT_NAME": "The Off the Binder System",
+  "PRECIO_PLANTILLA": "",
+  "LINK_COMPRA_PLANTILLA": "",
+  "PRECIO_DESDE_SERVICIO": "",
+  "LINK_SERVICIO": "https://bars.offthebinder.com",
+  "LINK_MERCH": "",
+  "MERCH_LAUNCH": "30 November 2026",
+  "GARANTIA": "",
+  "REFUND_POLICY": ""
+}

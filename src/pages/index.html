@@ -1,159 +1,239 @@
 <!--
-title: Off the Binder · Bar systems and recipes
-description: Stories from behind the bar and one idea a week to get your bar's recipes out of the binder, the group chat and someone's head. Free, every Tuesday.
+title: Off the Binder · A recipe system for bars
+description: Every spec, prep and batch in one place your whole team can find mid-rush. A ready-made recipe system for bartenders and bar managers, built by a working bartender in Melbourne.
 path: /
 nav: home
 -->
+
+<!-- 1. HERO · What is it, is it for me? -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Free newsletter · Every Tuesday</p>
-      <h1>Your bar's recipes, <em>off</em> the binder.</h1>
-      <p class="lede">Stories from behind the bar and one idea a week to get your recipes out of the binder, the group chat and someone's head. Written by a working bartender, for bartenders, bar managers and owners.</p>
-      {{> subscribe}}
-      <p class="hero-meta">Edition 01 · Tue 17 Nov 2026</p>
+      <p class="eyebrow">{{v:PRODUCT_NAME}}{{#if waitlist}} · Early access{{/if}}</p>
+      <h1>Get your bar's recipes <em>off</em> the binder.</h1>
+      <p class="lede">Every spec, prep and batch in one place your whole team can find mid-rush.</p>
+      <div class="hero-cta" data-hero-cta>
+        {{#if waitlist}}{{> subscribe}}{{else}}{{> cta-button}}{{/if}}
+      </div>
+      <p class="hero-links"><a class="text-link" href="{{v:LINK_SERVICIO}}" data-track="venues">Rather have it built for you? →</a></p>
+      <p class="proof"><img src="/assets/img/fig/jigger.png" width="12" height="30" alt=""> Built by a working bartender in Melbourne</p>
     </div>
     <div class="hero-art">
-      <img class="float f1" src="/assets/img/fig/cherry.png" width="58" height="63" alt="" style="top:-4%;right:8%;--r:-8deg">
-      <img class="float f2" src="/assets/img/fig/citrus.png" width="62" height="62" alt="" style="bottom:4%;left:-2%;--r:10deg">
-      <img class="float f3" src="/assets/img/fig/jigger.png" width="30" height="64" alt="" style="top:18%;left:-3%;--r:6deg">
-      <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="22" height="22" style="top:8%;left:24%">
-      <svg class="sparkle is-cherry" viewBox="0 0 24 24" aria-hidden="true" style="top:30%;right:2%">{{> sparkle}}</svg>
-      <img class="sparkle s3" src="/assets/img/fig/sparkle.png" alt="" width="22" height="22" style="bottom:18%;right:30%">
-      <img class="ill" src="/assets/img/ill/binder-800.webp" srcset="/assets/img/ill/binder-800.webp 800w, /assets/img/ill/binder-1400.webp 1024w" sizes="(max-width: 860px) 90vw, 46vw" width="800" height="800" alt="Linocut illustration: an open ring binder of recipe sheets beside a coupe with a cherry and a brass jigger." fetchpriority="high">
+      <img class="float f1" src="/assets/img/fig/cherry.png" width="48" height="60" alt="" style="top:-6%;right:4%;--r:-8deg">
+      <img class="float f2" src="/assets/img/fig/citrus.png" width="52" height="52" alt="" style="bottom:-4%;left:2%;--r:10deg">
+      <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="26" height="26" style="top:4%;left:30%">
+      <img class="sparkle s3" src="/assets/img/fig/sparkle.png" alt="" width="16" height="16" style="top:22%;right:22%">
+      <svg class="sparkle is-cherry" viewBox="0 0 24 24" aria-hidden="true" style="bottom:28%;left:44%">{{> sparkle}}</svg>
+      <img class="ill hero-ill" src="/assets/img/ill/binder-to-system-900.webp" srcset="/assets/img/ill/binder-to-system-900.webp 900w, /assets/img/ill/binder-to-system-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 50vw" width="900" height="604" alt="Linocut illustration: stained pages fly out of an overstuffed recipe binder and land as neat recipe cards on a tablet." fetchpriority="high">
     </div>
   </div>
 </section>
 
-<div class="ribbon" aria-label="Off the binder, into a system. One idea every Tuesday.">
-  <div class="ribbon-track" aria-hidden="true">
-    <div class="ribbon-group">
-      <span class="ribbon-item">Off the <em>binder</em></span><img class="ribbon-star" src="/assets/img/fig/sparkle.png" alt="" width="18" height="18">
-      <span class="ribbon-item">Out of the group chat</span><svg class="ribbon-star is-cherry" viewBox="0 0 24 24">{{> sparkle}}</svg>
-      <span class="ribbon-item">Into a <em>system</em></span><img class="ribbon-star" src="/assets/img/fig/sparkle.png" alt="" width="18" height="18">
-      <span class="ribbon-item">One idea every Tuesday</span><svg class="ribbon-star is-cherry" viewBox="0 0 24 24">{{> sparkle}}</svg>
-    </div>
-    <div class="ribbon-group">
-      <span class="ribbon-item">Off the <em>binder</em></span><img class="ribbon-star" src="/assets/img/fig/sparkle.png" alt="" width="18" height="18">
-      <span class="ribbon-item">Out of the group chat</span><svg class="ribbon-star is-cherry" viewBox="0 0 24 24">{{> sparkle}}</svg>
-      <span class="ribbon-item">Into a <em>system</em></span><img class="ribbon-star" src="/assets/img/fig/sparkle.png" alt="" width="18" height="18">
-      <span class="ribbon-item">One idea every Tuesday</span><svg class="ribbon-star is-cherry" viewBox="0 0 24 24">{{> sparkle}}</svg>
-    </div>
-  </div>
-</div>
-
-<section class="section">
+<!-- 2. PAIN · Do you get me? -->
+<section class="section-tight">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Sound familiar?</p>
-      <h2>Where your recipes <em>actually</em> live</h2>
-      <p class="lede">Most bars run on three filing systems at once. None of them talk to each other, and all of them break on a busy Friday.</p>
+    <div class="section-head center">
+      <h2>Sound <em>familiar</em>?</h2>
     </div>
     <div class="cards">
       <article class="card reveal">
         <img class="fig" src="/assets/img/fig/binder.png" width="56" height="56" alt="">
-        <span class="card-num">01</span>
-        <h3>The binder</h3>
-        <p>Sticky pages, crossed-out specs and a syrup recipe nobody has updated since the last menu change.</p>
+        <h3>The sticky binder</h3>
+        <p>Crossed-out specs and a syrup recipe from three menus ago.</p>
       </article>
       <article class="card reveal d1">
         <img class="fig" src="/assets/img/fig/torn-sheet.png" width="56" height="56" alt="">
-        <span class="card-num">02</span>
         <h3>The group chat</h3>
-        <p>The new spec got sent at 1 am, between a roster swap and a photo of someone's dinner. Good luck scrolling back to it.</p>
+        <p>The new spec, lost between a roster swap and someone's dinner.</p>
       </article>
       <article class="card reveal d2">
         <img class="fig" src="/assets/img/fig/clock.png" width="56" height="56" alt="">
-        <span class="card-num">03</span>
-        <h3>Someone's head</h3>
-        <p>It works perfectly, until that someone is on leave, on a day off or gone for good.</p>
+        <h3>Same question, every shift</h3>
+        <p>"How does the house sour go?" Again. Prep list on a scrap of paper.</p>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section on-surface">
-  <div class="wrap split">
-    <div class="split-art reveal">
-      <img src="/assets/img/ill/tablet-800.webp" srcset="/assets/img/ill/tablet-800.webp 800w, /assets/img/ill/tablet-1400.webp 1024w" sizes="(max-width: 860px) 90vw, 45vw" width="800" height="800" alt="Linocut illustration: a tablet showing a recipe list on a timber bar, next to a coupe and a folded bar towel." loading="lazy">
-    </div>
-    <div>
-      <p class="eyebrow">What lands every Tuesday</p>
-      <h2>One story. One idea. <em>Five</em> minutes.</h2>
-      <ul class="ticks">
-        <li><img src="/assets/img/fig/tick.png" width="24" height="24" alt=""><span><strong>A story from behind the bar.</strong> The real stuff: what went wrong on a shift and what fixed it.</span></li>
-        <li><img src="/assets/img/fig/tick.png" width="24" height="24" alt=""><span><strong>One system idea you can use this week.</strong> How to write a spec, label a prep, split production from service.</span></li>
-        <li><img src="/assets/img/fig/tick.png" width="24" height="24" alt=""><span><strong>Smart tools, used properly.</strong> Where AI and good design save you time, and where they don't.</span></li>
-      </ul>
-      <a class="btn btn-primary" href="/newsletter/">More about the newsletter</a>
-    </div>
+<!-- 3. COST OF NOT CHANGING · Is it urgent? -->
+<section class="cost on-green">
+  <div class="wrap cost-grid">
+    <h2>Every shift without a system <em>costs</em> you.</h2>
+    <ul class="cost-list">
+      <li>The same drink, different depending on who's on</li>
+      <li>Hours of training, repeated for every new starter</li>
+      <li>Prep binned because nobody wrote the date</li>
+      <li>No time to look anything up on a Saturday rush</li>
+    </ul>
   </div>
 </section>
 
+<!-- 4. SOLUTION · BEFORE / AFTER · Will it fix it? -->
 <section class="section">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Two jobs, two cards</p>
-      <h2>Production vs <em>service</em></h2>
-      <p class="lede">Prep recipes tell you how to make a batch. Service specs tell you what goes in the glass. Keep them apart and nobody asks what's in the house sour at 11 pm.</p>
+    <div class="section-head center">
+      <p class="eyebrow">The fix</p>
+      <h2>One system. <em>Every</em> spec.</h2>
+      <p class="lede">{{v:PRODUCT_NAME}} puts every recipe in the same clean format, on every phone behind the bar. Write it once and the whole team pours it the same way.</p>
     </div>
-    <div class="fichas">
-      <article class="ficha reveal">
-        <div class="ficha-top"><p class="eyebrow">Spec · Classic</p><span class="ficha-no">No. 01</span></div>
-        <h3>Daiquiri</h3>
-        <img class="ficha-art" src="/assets/img/ill/daiquiri-800.webp" width="800" height="533" alt="Linocut illustration: a daiquiri in a coupe with a lime wheel, half a lime and a brass jigger on a timber bar." loading="lazy">
-        <div class="ficha-body">
-          <div>
-            <p class="ficha-label">Spec</p>
-<pre class="spec-lines">60ml     White Rum
+    <div class="ba" data-ba>
+      <figure class="ba-side ba-before">
+        <img src="/assets/img/ill/binder-800.webp" width="800" height="800" alt="Before: an open recipe binder with loose pages, a coupe and a jigger." loading="lazy">
+        <figcaption><b>Before</b> A binder, a group chat and one person who knows</figcaption>
+      </figure>
+      <figure class="ba-side ba-after">
+        <img src="/assets/img/ill/tablet-800.webp" width="800" height="800" alt="After: a tablet showing a tidy list of recipes on the bar." loading="lazy">
+        <figcaption><b>After</b> One system, on every phone</figcaption>
+      </figure>
+      <span class="ba-handle" aria-hidden="true"></span>
+    </div>
+    <ul class="benefits">
+      <li><img src="/assets/img/fig/recipe-card.png" width="40" height="32" alt=""><span><b>Specs, preps and batches</b> each in their own format</span></li>
+      <li><img src="/assets/img/fig/tag.png" width="40" height="22" alt=""><span><b>Yield, shelf life and date</b> on every prep</span></li>
+      <li><img src="/assets/img/fig/tablet.png" width="40" height="40" alt=""><span><b>Any drink in seconds</b> on the phone, mid-shift</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. HOW IT WORKS · How much work is it? -->
+<section class="section on-surface">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow">How it works</p>
+      <h2>Set up in an <em>afternoon</em>.</h2>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><span class="step-n">1</span><h3>Duplicate the template</h3><p>One click into your own Notion workspace.</p></li>
+      <li class="reveal d1"><span class="step-n">2</span><h3>Add your specs</h3><p>Drop in recipes, preps and batches using the ready-made formats.</p></li>
+      <li class="reveal d2"><span class="step-n">3</span><h3>Open it mid-shift</h3><p>Your team finds any spec on their phone, in seconds.</p></li>
+    </ol>
+    <p class="center-cta">{{> cta-button}}</p>
+  </div>
+</section>
+
+<!-- 6. PROOF · DEMO · Can I trust it? -->
+<section class="section">
+  <div class="wrap demo-grid">
+    <div>
+      <p class="eyebrow">Try it</p>
+      <h2>A spec card that does the <em>maths</em>.</h2>
+      <p class="lede">Tap a batch size and the spec scales itself. This is how every recipe looks in the system.</p>
+      <p class="muted small">Classic recipe for the demo. Your recipes stay yours.</p>
+    </div>
+    <article class="ficha demo reveal" data-demo>
+      <div class="ficha-top"><p class="eyebrow">Spec · Classic</p><span class="ficha-no">No. 01</span></div>
+      <h3>Daiquiri</h3>
+      <div class="demo-tabs" role="group" aria-label="Batch size">
+        <button type="button" aria-pressed="true" data-serves="1">1 drink</button>
+        <button type="button" aria-pressed="false" data-serves="4">4 drinks</button>
+        <button type="button" aria-pressed="false" data-serves="20">Batch of 20</button>
+      </div>
+      <div class="ficha-body">
+        <div>
+          <p class="ficha-label">Spec</p>
+<pre class="spec-lines" data-spec aria-live="polite">60ml     White Rum
 30ml     Lime Juice
 20ml     Sugar Syrup 1:1</pre>
-          </div>
-          <div class="ficha-meta">
-            <p class="ficha-label small">Method</p><p>Shake</p>
-            <p class="ficha-label small">Glass</p><p>Coupe</p>
-            <p class="ficha-label small">Garnish</p><p>None</p>
-          </div>
         </div>
-        <div class="ficha-foot"><img src="/assets/img/logo/logo-h-light-440.webp" width="110" height="24" alt="Off the Binder" loading="lazy"><span>@offthebinder</span></div>
+        <div class="ficha-meta">
+          <p class="ficha-label small">Method</p><p>Shake</p>
+          <p class="ficha-label small">Glass</p><p>Coupe</p>
+          <p class="ficha-label small">Garnish</p><p>None</p>
+        </div>
+      </div>
+      <div class="ficha-foot"><img src="/assets/img/logo/logo-h-light-440.webp" width="110" height="24" alt="Off the Binder" loading="lazy"><span>@offthebinder</span></div>
+    </article>
+  </div>
+  <!-- Testimonials: hidden until there are real ones. Never invent quotes. -->
+</section>
+
+<!-- 7. CHOOSE HOW · How much? -->
+<section class="section on-surface" id="pricing">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow">Choose how</p>
+      <h2>Do it yourself, or have it <em>built</em>.</h2>
+    </div>
+    <div class="plans">
+      <article class="plan plan-main reveal">
+        <span class="plan-badge">Start here</span>
+        <h3>{{v:PRODUCT_NAME}}</h3>
+        <p class="plan-price">{{#if waitlist}}Early access{{else}}A${{v:PRECIO_PLANTILLA}}{{/if}}</p>
+        <p>The ready-made recipe system. Set it up yourself in an afternoon.</p>
+        <ul class="ticks">
+          <li><img src="/assets/img/fig/tick.png" width="22" height="22" alt=""><span>Spec, prep and batch formats</span></li>
+          <li><img src="/assets/img/fig/tick.png" width="22" height="22" alt=""><span>Works on any phone with Notion</span></li>
+          <li><img src="/assets/img/fig/tick.png" width="22" height="22" alt=""><span>Your recipes stay in your workspace</span></li>
+        </ul>
+        {{> cta-button}}
       </article>
-      <article class="ficha reveal d1">
-        <div class="ficha-top"><p class="eyebrow">Prep · Syrup</p><span class="ficha-no">No. 01</span></div>
-        <div class="ficha-head">
-          <h3>Sugar Syrup 1:1</h3>
-          <img class="thumb" src="/assets/img/ill/syrup-800.webp" width="96" height="96" alt="Linocut illustration: a swing-top bottle of syrup with lemons and a measuring jug." loading="lazy">
-        </div>
-        <div class="ficha-stats">
-          <div><span>Yield</span><b>1.2 L</b></div>
-          <div><span>Shelf life</span><b>14 days</b></div>
-          <div><span>Store</span><b>Fridge</b></div>
-        </div>
-        <p class="ficha-label">Ingredients</p>
-<pre class="spec-lines">600g     White Sugar
-600ml    Hot Water</pre>
-        <p class="ficha-label small">Method</p>
-        <ol>
-          <li>Stir the sugar into the hot water until dissolved.</li>
-          <li>Cool, bottle and label with the date.</li>
-          <li>Keep refrigerated.</li>
-        </ol>
-        <p class="chips">Used in <b>Daiquiri</b><b>Tom Collins</b><b>Whiskey Sour</b></p>
-        <div class="ficha-foot"><img src="/assets/img/logo/logo-h-light-440.webp" width="110" height="24" alt="Off the Binder" loading="lazy"><span>@offthebinder</span></div>
+      <article class="plan reveal d1">
+        <h3>Done for you</h3>
+        <p class="plan-price">from A${{v:PRECIO_DESDE_SERVICIO}}</p>
+        <p>I build your system and load your whole menu. You just check it.</p>
+        <ul class="ticks">
+          <li><img src="/assets/img/fig/tick.png" width="22" height="22" alt=""><span>Your specs and preps, loaded for you</span></li>
+          <li><img src="/assets/img/fig/tick.png" width="22" height="22" alt=""><span>Set up for your team and your menu</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="{{v:LINK_SERVICIO}}" data-track="venues">Have it built for you ↗</a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section on-green">
-  <div class="wrap split">
-    <div>
-      <p class="eyebrow">Free on signup</p>
-      <h2>Start with the <em>audit</em> checklist</h2>
-      <p class="lede" style="color:inherit">Subscribe and get the Recipe system audit checklist: a quick walk through your bar to see where your specs and preps really live, and what to fix first.</p>
-      <p class="signoff" style="color:var(--papel-crema)">Lucas, bartender in Melbourne</p>
+{{#if GARANTIA}}
+<!-- 8. GUARANTEE · What if it goes wrong? (only with Lucas-approved text) -->
+<section class="section-tight">
+  <div class="wrap guarantee">
+    <img src="/assets/img/fig/coaster.png" width="72" height="72" alt="">
+    <div><h2>Our <em>guarantee</em></h2><p>{{v:GARANTIA}}</p></div>
+  </div>
+</section>
+{{/if}}
+
+<!-- 9. MERCH -->
+<section class="merch-band">
+  <div class="wrap merch-grid">
+    <div class="merch-figs" aria-hidden="true">
+      <img src="/assets/img/fig/coupe.png" width="56" height="60" alt="">
+      <img src="/assets/img/fig/shaker.png" width="34" height="58" alt="">
+      <img src="/assets/img/fig/cherry.png" width="46" height="58" alt="">
     </div>
-    <div class="reveal">
-      {{> subscribe}}
+    <div>
+      <h2>Wear the <em>trade</em>.</h2>
+      <p>Original tees and posters for people who work the bar.{{#if LINK_MERCH}}{{else}} Coming {{v:MERCH_LAUNCH}}.{{/if}}</p>
+    </div>
+    <a class="btn btn-ghost" href="/merch/" data-track="merch">{{#if LINK_MERCH}}Shop merch{{else}}See what's coming{{/if}}</a>
+  </div>
+</section>
+
+<!-- 10. ABOUT LUCAS -->
+<section class="section">
+  <div class="wrap about-grid">
+    <img class="about-art reveal" src="/assets/img/ill/character-800.webp" width="800" height="800" alt="Linocut illustration: a bartender's hands and apron behind the bar, holding a tablet of recipes." loading="lazy">
+    <div>
+      <p class="eyebrow">Who's behind it</p>
+      <h2>Made <em>behind</em> the bar.</h2>
+      <p class="lede">I'm a bartender in Melbourne. Every bar I've worked in kept its recipes in a binder, a group chat and someone's head, and paid for it on a busy night. So I built the system I wished we'd had.</p>
+      <p class="signoff">Lucas, bartender in Melbourne</p>
     </div>
   </div>
 </section>
+
+<!-- 11. FAQ -->
+<section class="section-tight on-surface">
+  <div class="wrap faq-wrap">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Do I need to know Notion?</summary><p>No. If you can fill in a form, you can use it. Rather not touch it at all? <a class="text-link" href="{{v:LINK_SERVICIO}}">I'll build it for you →</a></p></details>
+      <details><summary>Are my recipes private?</summary><p>Yes. The system lives in your own Notion workspace. I never see your recipes.</p></details>
+      <details><summary>Does it work on a phone?</summary><p>Yes. Notion has apps for iPhone and Android, so your team can open any spec mid-shift.</p></details>
+      <details><summary>What if the menu changes?</summary><p>Edit the card once and everyone sees the new spec straight away. Old specs get archived, not lost.</p></details>
+      <details><summary>Who is it for?</summary><p>Bartenders, bar managers and owners, from a small cocktail bar to a busy venue.</p></details>
+      {{#if REFUND_POLICY}}<details><summary>What about refunds?</summary><p>{{v:REFUND_POLICY}}</p></details>{{/if}}
+    </div>
+  </div>
+</section>
+
+<!-- 12. FINAL CTA -->
+{{> cta-final}}
