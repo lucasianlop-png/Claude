@@ -420,3 +420,40 @@ mark.ph { background: var(--limon); color: var(--tinta); font-family: var(--font
 }
 .about-grid > *, .demo-grid > *, .cta-final-grid > *, .hero-grid > * { min-width: 0; }
 .about-art { width: 100%; }
+
+/* ===================== What is Notion + animated phone ===================== */
+.notion-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.notion-grid > * { min-width: 0; }
+.notion .lede { color: var(--papel-crema); }
+.notion-points { list-style: none; padding: 0; margin: 0 0 18px; }
+.notion-points li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; margin-bottom: 14px; color: var(--papel-crema); }
+.notion-points img { width: 32px; height: auto; background: var(--papel-crema); border-radius: 8px; padding: 3px; }
+.notion-points b { color: var(--papel-crema); }
+.notion-note { font-size: 12px; color: var(--salvia); margin: 0; }
+@media (max-width: 860px) { .notion-grid { grid-template-columns: 1fr; } }
+
+.phone-wrap { position: relative; display: grid; place-items: center; padding: 20px 0; }
+.phone { position: relative; width: min(300px, 82vw); aspect-ratio: 9 / 18.5; background: var(--tinta); border-radius: 38px; padding: 12px; box-shadow: 0 30px 60px -25px rgba(0, 0, 0, .6), inset 0 0 0 2px var(--bronce); }
+.phone-notch { position: absolute; top: 18px; left: 50%; width: 80px; height: 18px; background: var(--tinta); border-radius: 0 0 12px 12px; transform: translateX(-50%); z-index: 2; }
+.phone-screen { height: 100%; background: var(--superficie); border-radius: 28px; padding: 40px 16px 16px; overflow: hidden; }
+.phone-title { font-family: var(--font-title); font-size: 26px; color: var(--verde-botella); margin: 0 0 10px; }
+.phone-search { display: flex; align-items: center; gap: 8px; background: var(--papel-crema); border: 1px solid var(--lino); border-radius: 10px; padding: 8px 10px; font-family: var(--font-spec); font-size: 13px; color: var(--tinta); min-height: 36px; }
+.phone-search-icon { width: 11px; height: 11px; border: 2px solid var(--humo); border-radius: 50%; position: relative; flex: 0 0 auto; }
+.phone-search-icon::after { content: ""; position: absolute; width: 2px; height: 6px; background: var(--humo); right: -4px; bottom: -5px; transform: rotate(-45deg); }
+.phone-caret { width: 1.5px; height: 15px; background: var(--cereza); animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.phone-chips { display: flex; gap: 6px; margin: 10px 0 12px; }
+.phone-chips span { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--lino); color: var(--verde-botella); padding: 3px 8px; border-radius: 999px; }
+.phone-chips span:first-child { background: var(--verde-botella); color: var(--papel-crema); }
+.phone-list { list-style: none; margin: 0; padding: 0; }
+.phone-list li { display: grid; grid-template-columns: 30px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; padding: 9px 4px; border-bottom: 1px solid var(--lino); transition: opacity .35s ease, transform .35s ease, max-height .35s ease, padding .35s ease; max-height: 70px; overflow: hidden; }
+.phone-list li img { grid-row: 1 / 3; width: 26px; height: 26px; object-fit: contain; }
+.phone-list li b { font-family: var(--font-title); font-weight: 400; font-size: 18px; color: var(--verde-botella); line-height: 1.1; }
+.phone-list li em { font-style: normal; font-family: var(--font-spec); font-size: 11px; color: var(--humo); }
+.phone-list li.is-out { opacity: 0; transform: translateX(14px); max-height: 0; padding-top: 0; padding-bottom: 0; border-bottom-color: transparent; }
+.phone-list li.is-hit { background: linear-gradient(90deg, rgba(201, 154, 59, .18), transparent); border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .phone-caret { animation: none; }
+  .phone-list li { transition: none; }
+}
+.plans-more { text-align: center; margin: 28px 0 0; color: var(--humo); }

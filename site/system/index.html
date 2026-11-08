@@ -18,6 +18,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_AU">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
@@ -38,6 +39,7 @@
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul>
         <li><a href="/system/" data-nav="system" aria-current="page">The System</a></li>
+        <li><a href="/templates/" data-nav="templates" data-track="templates">Templates</a></li>
         <li><a href="https://bars.offthebinder.com" data-track="venues">For Venues <span aria-hidden="true">↗</span></a></li>
         <li><a href="/merch/" data-nav="merch" data-track="merch">Merch</a></li>
         <li><a href="/newsletter/" data-nav="newsletter">Newsletter</a></li>
@@ -110,6 +112,44 @@
   </div>
 </section>
 
+<section class="section on-green notion" id="notion">
+  <div class="wrap notion-grid">
+    <div>
+      <p class="eyebrow">Built in Notion</p>
+      <h2>A binder that <em>searches</em> itself.</h2>
+      <p class="lede">Notion is a popular app for notes, docs and databases. In the system, every recipe is a page, every page sits in one tidy list, and the whole lot syncs to every phone behind the bar.</p>
+      <ul class="notion-points">
+        <li class="reveal"><img src="/assets/img/fig/tick.png" width="28" height="28" alt=""><span><b>Free to start.</b> Notion has a free plan, so you can try the system without a new subscription.</span></li>
+        <li class="reveal d1"><img src="/assets/img/fig/tablet.png" width="28" height="28" alt=""><span><b>On every device.</b> Apps for iPhone, Android, Mac and Windows, plus any web browser.</span></li>
+        <li class="reveal d2"><img src="/assets/img/fig/recipe-card.png" width="28" height="28" alt=""><span><b>Search, filter, share.</b> Type two letters and the spec is there. Filter by glass, method or menu.</span></li>
+      </ul>
+      <p class="notion-note">Notion is a trademark of Notion Labs, Inc. Off the Binder isn't affiliated with or endorsed by Notion.</p>
+    </div>
+
+    <!-- Animated mock of the system on a phone. Brand-styled illustration, not a screenshot of Notion. -->
+    <div class="phone-wrap" aria-hidden="true">
+      <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="26" height="26" style="top:2%;left:4%">
+      <img class="float f2" src="/assets/img/fig/cherry.png" width="46" height="58" alt="" style="bottom:6%;right:0;--r:8deg">
+      <div class="phone" data-phone>
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <p class="phone-title">House Specs</p>
+          <div class="phone-search"><span class="phone-search-icon"></span><span data-phone-query></span><span class="phone-caret"></span></div>
+          <div class="phone-chips"><span>All</span><span>Shake</span><span>Stir</span><span>Build</span></div>
+          <ul class="phone-list" data-phone-list>
+            <li data-k="daiquiri shake coupe rum"><img src="/assets/img/fig/coupe.png" alt=""><b>Daiquiri</b><em>Shake · Coupe</em></li>
+            <li data-k="negroni stir rocks gin"><img src="/assets/img/fig/rocks.png" alt=""><b>Negroni</b><em>Stir · Rocks</em></li>
+            <li data-k="whiskey sour shake rocks"><img src="/assets/img/fig/rocks.png" alt=""><b>Whiskey Sour</b><em>Shake · Rocks</em></li>
+            <li data-k="tom collins build highball gin"><img src="/assets/img/fig/highball.png" alt=""><b>Tom Collins</b><em>Build · Highball</em></li>
+            <li data-k="martini stir martini gin"><img src="/assets/img/fig/martini.png" alt=""><b>Dry Martini</b><em>Stir · Martini</em></li>
+            <li data-k="sugar syrup prep syrup"><img src="/assets/img/fig/bottle.png" alt=""><b>Sugar Syrup 1:1</b><em>Prep · 14 days</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="section-head center"><p class="eyebrow">How it works</p><h2>Set up in an <em>afternoon</em>.</h2></div>
@@ -130,7 +170,7 @@
       <details><summary>Are my recipes private?</summary><p>Yes. The system lives in your own Notion workspace. I never see your recipes.</p></details>
       <details><summary>Does it work on a phone?</summary><p>Yes. Notion has apps for iPhone and Android.</p></details>
       <details><summary>What if the menu changes?</summary><p>Edit the card once and everyone sees the new spec straight away.</p></details>
-      
+      <details><summary>What about refunds?</summary><p>Covered by the 14-day money-back guarantee. After that, your rights under the Australian Consumer Law still apply if anything's wrong with the product.</p></details>
     </div>
   </div>
 </section>
@@ -164,6 +204,7 @@
         <h2>Off the Binder</h2>
         <ul>
           <li><a href="/system/">The System</a></li>
+          <li><a href="/templates/">Templates</a></li>
           <li><a href="https://bars.offthebinder.com">For Venues ↗</a></li>
           <li><a href="/merch/">Merch</a></li>
           <li><a href="/newsletter/">Newsletter</a></li>

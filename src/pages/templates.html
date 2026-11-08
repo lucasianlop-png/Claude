@@ -1,0 +1,49 @@
+<!--
+title: Templates
+description: Ready-made templates for bars: express menu designs and costing sheets. Download, edit, done.
+path: /templates/
+nav: templates
+-->
+<section class="page-head">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Templates{{#if LINK_TIENDA_PLANTILLAS}}{{else}} · Opening soon{{/if}}</p>
+      <h1>Ready-made, <em>bar-tested</em> templates.</h1>
+      <p class="lede">Express menu designs and costing sheets you can edit and use tonight. For when you need one job done, not a whole system.</p>
+      {{#if LINK_TIENDA_PLANTILLAS}}<p><a class="btn btn-primary" href="{{v:LINK_TIENDA_PLANTILLAS}}" rel="noopener" data-track="templates">Browse the shop ↗</a></p>{{/if}}
+    </div>
+    <div class="hero-art">
+      <img class="float f1" src="/assets/img/fig/recipe-card.png" width="90" height="70" alt="" style="top:4%;right:10%;--r:-6deg">
+      <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="26" height="26" style="bottom:20%;left:10%">
+      <img class="ill" src="/assets/img/ill/syrup-800.webp" width="800" height="800" alt="Linocut illustration: a bottle of syrup with a hanging tag, lemons and a measuring jug.">
+    </div>
+  </div>
+</section>
+
+<!-- Product grid: filled from /data/products.js. While the list is empty, the "what's coming" cards show. -->
+<section class="section-tight" id="products" hidden>
+  <div class="wrap">
+    <div class="product-grid" data-products></div>
+    <p class="muted small" style="margin-top:22px">Prices in AUD. You'll check out on Etsy or Payhip, not on this site.</p>
+  </div>
+</section>
+
+<section class="section-tight" id="coming-soon">
+  <div class="wrap">
+    <div class="coming">
+      <article class="card reveal">
+        <img class="fig" src="/assets/img/fig/torn-sheet.png" width="56" height="56" alt="">
+        <h3>Express menu designs</h3>
+        <p>Good-looking cocktail menus in the Back Bar style. Swap in your drinks and prices, print or share.</p>
+      </article>
+      <article class="card reveal d1">
+        <img class="fig" src="/assets/img/fig/jigger.png" width="56" height="56" alt="">
+        <h3>Costing sheets</h3>
+        <p>Pour cost per drink and per batch, worked out for you. Type in your bottle prices and the sheet does the maths.</p>
+      </article>
+    </div>
+    <p class="plans-more">Want the whole recipe system instead? <a class="text-link" href="/system/">See {{v:PRODUCT_NAME}} →</a></p>
+  </div>
+</section>
+
+{{> cta-final}}

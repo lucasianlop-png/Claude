@@ -80,6 +80,41 @@
     });
   }
 
+
+  // Animated phone: types a search, filters the recipe list, then loops
+  var phone = document.querySelector('[data-phone]');
+  if (phone) {
+    var qEl = phone.querySelector('[data-phone-query]');
+    var rows = [].slice.call(phone.querySelectorAll('[data-phone-list] li'));
+    var queries = ['sour', 'negroni', 'gin', 'syrup'];
+    var filter = function (q) {
+      rows.forEach(function (li) {
+        var hit = !q || li.getAttribute('data-k').indexOf(q) !== -1;
+        li.classList.toggle('is-out', !hit);
+        li.classList.toggle('is-hit', !!q && hit);
+      });
+    };
+    if (reduce) {
+      qEl.textContent = 'sour'; filter('sour');
+    } else {
+      var qi = 0, running = false;
+      var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+      var loop = async function () {
+        if (running) return; running = true;
+        while (true) {
+          var q = queries[qi % queries.length]; qi++;
+          for (var i = 1; i <= q.length; i++) { qEl.textContent = q.slice(0, i); filter(q.slice(0, i)); await wait(170); }
+          await wait(1800);
+          for (var j = q.length - 1; j >= 0; j--) { qEl.textContent = q.slice(0, j); await wait(60); }
+          filter(''); await wait(900);
+        }
+      };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { loop(); o.disconnect(); } }).observe(phone);
+      } else { loop(); }
+    }
+  }
+
   // Products page: render the list from /data/products.js
   var grid = document.querySelector('[data-products]');
   if (grid) {
