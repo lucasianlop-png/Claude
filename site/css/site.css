@@ -457,3 +457,72 @@ mark.ph { background: var(--limon); color: var(--tinta); font-family: var(--font
   .phone-list li { transition: none; }
 }
 .plans-more { text-align: center; margin: 28px 0 0; color: var(--humo); }
+
+/* ===================== Round 3 adjustments ===================== */
+/* No widows: balanced headings, "pretty" paragraphs (the build also glues the last two words) */
+h1, h2, h3, .lede { text-wrap: balance; }
+p, li, figcaption, summary { text-wrap: pretty; }
+
+/* Hero title fits in two lines on desktop */
+.hero-grid { grid-template-columns: 1.15fr 1fr; }
+.h1-hero { font-size: clamp(40px, 4.7vw, 64px); }
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin: 4px 0 18px; }
+.hero-cta .text-link { font-size: 15px; }
+@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+
+/* Illustrations sit on the page colour: no frame, no corners */
+.hero-art .ill, .split-art img, .about-art, .ba { border-radius: 0; }
+.ba { box-shadow: none; }
+
+/* Desktop-only line break */
+.br-d { display: none; }
+@media (min-width: 861px) { .br-d { display: inline; } }
+
+/* Gold diamond bullets (brand ornament) */
+.diamonds { list-style: none; padding: 0; margin: 0 0 22px; }
+.diamonds li { position: relative; padding-left: 24px; margin-bottom: 12px; }
+.diamonds li::before { content: ""; position: absolute; left: 2px; top: .55em; width: 9px; height: 9px; background: var(--bronce); transform: rotate(45deg); }
+.cost-list li::before { background: var(--bronce); }
+.notion-points li { display: block; color: var(--papel-crema); }
+
+/* Single offer card */
+.plan-solo { max-width: 780px; margin: 0 auto; padding: clamp(26px, 4vw, 40px); }
+.plan-solo-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 14px; }
+.plan-solo-head h3 { font-size: clamp(24px, 2.6vw, 30px); }
+.plan-solo-head .plan-price { margin: 0; }
+.plan-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+@media (max-width: 640px) { .plan-list { grid-template-columns: 1fr; } }
+
+/* Guarantee on sage, so it separates from the merch band */
+.guarantee-band { background: var(--salvia); padding: clamp(36px, 5vw, 56px) 0; }
+.guarantee-band .guarantee { margin: 0 auto; }
+.guarantee-band p { margin: 0; color: var(--tinta); max-width: 34em; }
+.guarantee-band h2 { margin-bottom: 8px; }
+
+/* For Venues */
+.included-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+.included-grid > * { min-width: 0; }
+.menu-card .fig { width: 120px; height: auto; }
+.menu-card h3 em { font-style: italic; }
+@media (max-width: 860px) { .included-grid { grid-template-columns: 1fr; } }
+.enquiry-box { background: var(--superficie); color: var(--tinta); border-radius: var(--radius); padding: 22px; min-height: 160px; }
+.enquiry-box p { color: var(--tinta); }
+.text-link.on-dark { color: var(--papel-crema); }
+.cta-final-alt { color: var(--papel-crema); margin: 0 0 10px; }
+.cta-final-alt b { color: var(--bronce); }
+
+/* Phone pop-up: the recipe page that opens */
+.phone-screen { position: relative; }
+.phone-page { position: absolute; left: 10px; right: 10px; bottom: 10px; top: 34%; background: var(--superficie); border: 1px solid var(--lino); border-radius: 18px 18px 22px 22px; box-shadow: 0 -12px 30px -12px rgba(28, 26, 23, .35); padding: 16px 16px 14px; transform: translateY(110%); transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+.phone-page.is-open { transform: translateY(0); }
+.phone-page::before { content: ""; display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--lino); margin: -6px auto 10px; }
+.phone-page-tag { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--bronce-texto); margin: 0 0 2px; }
+.phone-page-title { font-family: var(--font-title); font-size: 26px; line-height: 1.05; color: var(--verde-botella); margin: 0 0 10px; }
+.phone-page-props { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0 0 12px; }
+.phone-page-props div { background: var(--papel-crema); border: 1px solid var(--lino); border-radius: 8px; padding: 5px 7px; }
+.phone-page-props dt { font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--humo); }
+.phone-page-props dd { margin: 0; font-size: 12px; }
+.phone-page-spec { font-family: var(--font-spec); font-size: 11.5px; line-height: 1.7; margin: 0; white-space: pre; }
+@media (prefers-reduced-motion: reduce) { .phone-page { transition: none; } }
+.phone-screen { color: var(--tinta); }
+.phone-page-props dd, .phone-page-spec { color: var(--tinta); }

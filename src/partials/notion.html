@@ -4,18 +4,16 @@
       <p class="eyebrow">Built in Notion</p>
       <h2>A binder that <em>searches</em> itself.</h2>
       <p class="lede">Notion is a popular app for notes, docs and databases. In the system, every recipe is a page, every page sits in one tidy list, and the whole lot syncs to every phone behind the bar.</p>
-      <ul class="notion-points">
-        <li class="reveal"><img src="/assets/img/fig/tick.png" width="28" height="28" alt=""><span><b>Free to start.</b> Notion has a free plan, so you can try the system without a new subscription.</span></li>
-        <li class="reveal d1"><img src="/assets/img/fig/tablet.png" width="28" height="28" alt=""><span><b>On every device.</b> Apps for iPhone, Android, Mac and Windows, plus any web browser.</span></li>
-        <li class="reveal d2"><img src="/assets/img/fig/recipe-card.png" width="28" height="28" alt=""><span><b>Search, filter, share.</b> Type two letters and the spec is there. Filter by glass, method or menu.</span></li>
+      <ul class="diamonds notion-points">
+        <li class="reveal"><b>Free to start.</b> Notion has a free plan, so there's no new subscription to get going.</li>
+        <li class="reveal d1"><b>On every device.</b> Apps for iPhone, Android, Mac and Windows, plus any web browser.</li>
+        <li class="reveal d2"><b>Search, filter, share.</b> Type two letters and the spec is there. Tap it and the full recipe opens.</li>
       </ul>
       <p class="notion-note">Notion is a trademark of Notion Labs, Inc. Off the Binder isn't affiliated with or endorsed by Notion.</p>
     </div>
 
     <!-- Animated mock of the system on a phone. Brand-styled illustration, not a screenshot of Notion. -->
     <div class="phone-wrap" aria-hidden="true">
-      <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="26" height="26" style="top:2%;left:4%">
-      <img class="float f2" src="/assets/img/fig/cherry.png" width="46" height="58" alt="" style="bottom:6%;right:0;--r:8deg">
       <div class="phone" data-phone>
         <div class="phone-notch"></div>
         <div class="phone-screen">
@@ -23,13 +21,19 @@
           <div class="phone-search"><span class="phone-search-icon"></span><span data-phone-query></span><span class="phone-caret"></span></div>
           <div class="phone-chips"><span>All</span><span>Shake</span><span>Stir</span><span>Build</span></div>
           <ul class="phone-list" data-phone-list>
-            <li data-k="daiquiri shake coupe rum"><img src="/assets/img/fig/coupe.png" alt=""><b>Daiquiri</b><em>Shake · Coupe</em></li>
-            <li data-k="negroni stir rocks gin"><img src="/assets/img/fig/rocks.png" alt=""><b>Negroni</b><em>Stir · Rocks</em></li>
-            <li data-k="whiskey sour shake rocks"><img src="/assets/img/fig/rocks.png" alt=""><b>Whiskey Sour</b><em>Shake · Rocks</em></li>
-            <li data-k="tom collins build highball gin"><img src="/assets/img/fig/highball.png" alt=""><b>Tom Collins</b><em>Build · Highball</em></li>
-            <li data-k="martini stir martini gin"><img src="/assets/img/fig/martini.png" alt=""><b>Dry Martini</b><em>Stir · Martini</em></li>
-            <li data-k="sugar syrup prep syrup"><img src="/assets/img/fig/bottle.png" alt=""><b>Sugar Syrup 1:1</b><em>Prep · 14 days</em></li>
+            <li data-k="daiquiri shake coupe rum" data-page="daiquiri"><img src="/assets/img/fig/coupe.png" alt=""><b>Daiquiri</b><em>Shake · Coupe</em></li>
+            <li data-k="negroni stir rocks gin" data-page="negroni"><img src="/assets/img/fig/rocks.png" alt=""><b>Negroni</b><em>Stir · Rocks</em></li>
+            <li data-k="tom collins build highball gin" data-page="collins"><img src="/assets/img/fig/highball.png" alt=""><b>Tom Collins</b><em>Build · Highball</em></li>
+            <li data-k="martini stir martini gin" data-page="martini"><img src="/assets/img/fig/martini.png" alt=""><b>Dry Martini</b><em>Stir · Martini</em></li>
+            <li data-k="sugar syrup prep syrup" data-page="syrup"><img src="/assets/img/fig/bottle.png" alt=""><b>Sugar Syrup 1:1</b><em>Prep · 14 days</em></li>
           </ul>
+          <!-- Pop-up: the recipe page that opens when a row is tapped -->
+          <div class="phone-page" data-phone-page>
+            <p class="phone-page-tag">Spec · Classic</p>
+            <p class="phone-page-title" data-pp-title></p>
+            <dl class="phone-page-props"><div><dt>Method</dt><dd data-pp-method></dd></div><div><dt>Glass</dt><dd data-pp-glass></dd></div><div><dt>Garnish</dt><dd data-pp-garnish></dd></div></dl>
+            <pre class="phone-page-spec" data-pp-spec></pre>
+          </div>
         </div>
       </div>
     </div>

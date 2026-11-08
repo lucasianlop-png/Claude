@@ -1,17 +1,19 @@
 <!--
 title: The Off the Binder System
-description: A ready-made recipe system in Notion for bars: spec, prep and batch formats your whole team can open on their phone mid-shift.
+description: Inside the Off the Binder System: one format for specs, preps and batches, built around your menu and open on every phone behind the bar.
 path: /system/
 nav: system
 -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">{{v:PRODUCT_NAME}}{{#if waitlist}} · Early access{{/if}}</p>
-      <h1>The recipe system your bar <em>runs</em> on.</h1>
-      <p class="lede">A ready-made Notion template with one format for specs, one for preps and one for batches. Load your menu once, and your team opens it on their phone.</p>
-      <div class="hero-cta" data-hero-cta>{{#if waitlist}}{{> subscribe}}{{else}}{{> cta-button}}{{/if}}</div>
-      <p class="hero-links"><a class="text-link" href="{{v:LINK_SERVICIO}}" data-track="venues">Rather have it built for you? →</a></p>
+      <p class="eyebrow">Inside the system</p>
+      <h1 class="h1-hero">The recipe system your bar <em>runs</em> on.</h1>
+      <p class="lede">One format for specs, one for preps and one for batches. Built around your menu, and open on every phone behind the bar.</p>
+      <div class="hero-cta" data-hero-cta>
+        {{> cta-button}}
+        <a class="text-link" href="#notion">How it works on a phone →</a>
+      </div>
     </div>
     <div class="hero-art">
       <img class="sparkle" src="/assets/img/fig/sparkle.png" alt="" width="26" height="26" style="top:6%;left:20%">
@@ -65,25 +67,15 @@ nav: system
 
 {{> notion}}
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head center"><p class="eyebrow">How it works</p><h2>Set up in an <em>afternoon</em>.</h2></div>
-    <ol class="steps">
-      <li class="reveal"><span class="step-n">1</span><h3>Duplicate the template</h3><p>One click into your own Notion workspace.</p></li>
-      <li class="reveal d1"><span class="step-n">2</span><h3>Add your specs</h3><p>Drop in recipes, preps and batches using the ready-made formats.</p></li>
-      <li class="reveal d2"><span class="step-n">3</span><h3>Open it mid-shift</h3><p>Your team finds any spec on their phone, in seconds.</p></li>
-    </ol>
-    <p class="center-cta">{{> cta-button}}</p>
-  </div>
-</section>
+{{> how-it-works}}
 
 <section class="section-tight on-surface">
   <div class="wrap faq-wrap">
     <h2>Questions</h2>
     <div class="faq">
-      <details><summary>Do I need to know Notion?</summary><p>No. If you can fill in a form, you can use it. Rather not touch it at all? <a class="text-link" href="{{v:LINK_SERVICIO}}">I'll build it for you →</a></p></details>
-      <details><summary>Are my recipes private?</summary><p>Yes. The system lives in your own Notion workspace. I never see your recipes.</p></details>
-      <details><summary>Does it work on a phone?</summary><p>Yes. Notion has apps for iPhone and Android.</p></details>
+      <details><summary>Do I need to know Notion?</summary><p>No. I set it up and train your team, so nobody has to learn it from scratch.</p></details>
+      <details><summary>Are my recipes private?</summary><p>Yes. The system lives in your own Notion workspace, and your recipes are never shared or used anywhere else.</p></details>
+      <details><summary>Does it work on a phone?</summary><p>Yes. Notion has apps for iPhone and Android, so your team can open any spec mid-shift.</p></details>
       <details><summary>What if the menu changes?</summary><p>Edit the card once and everyone sees the new spec straight away.</p></details>
       {{#if REFUND_POLICY}}<details><summary>What about refunds?</summary><p>{{v:REFUND_POLICY}}</p></details>{{/if}}
     </div>

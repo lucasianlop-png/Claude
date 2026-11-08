@@ -64,7 +64,17 @@ def render(text, cfg, flags):
             return f'<mark class="ph">[{name}]</mark>'
         return val
 
-    return re.sub(r"\{\{v:([\w-]+)\}\}", var, text)
+    text = re.sub(r"\{\{v:([\w-]+)\}\}", var, text)
+    return no_widows(text)
+
+
+WIDOW_RE = re.compile(
+    r"(?<=[^\s<>]) ([^\s<>]{1,14}(?:</(?:a|b|em|strong|span|i)>)*)(</(?:p|li|h1|h2|h3|figcaption|summary|dd)>)")
+
+
+def no_widows(html):
+    """Join the last two words of a paragraph, list item or heading so one word never sits alone."""
+    return WIDOW_RE.sub(lambda m: "\u00a0" + m.group(1) + m.group(2), html)
 
 
 def parse(text):
