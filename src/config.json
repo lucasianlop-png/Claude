@@ -1,10 +1,10 @@
 {
-  "_help": "Variables for the site. Empty string = not set yet: the page shows a visible [PLACEHOLDER] and the build warns. STATE is 'waitlist' or 'on_sale'.",
+  "_help": "Variables for the site. Empty string = not set yet: the page shows a visible [PLACEHOLDER] and the build warns. STATE is 'waitlist' or 'on_sale'. SPOTS_LEFT: portfolio spots left out of 3 (update by hand; empty hides the scarcity line).",
   "STATE": "waitlist",
   "PRODUCT_NAME": "The Off the Binder System",
   "PRECIO_PLANTILLA": "",
   "LINK_COMPRA_PLANTILLA": "",
-  "PRECIO_DESDE_SERVICIO": "",
+  "PRECIO_DESDE_SERVICIO": "149",
   "LINK_SERVICIO": "/venues/",
   "LINK_MERCH": "",
   "MERCH_LAUNCH": "30 November 2026",
@@ -12,5 +12,6 @@
   "GARANTIA": "Set it up and load a few specs. If it isn't right for your bar within 14 days of purchase, email hello@offthebinder.com and I'll refund you in full. No forms, no fuss.",
   "REFUND_POLICY": "Covered by the 14-day money-back guarantee. After that, your rights under the Australian Consumer Law still apply if anything's wrong with the product.",
   "TALLY_FORM_ID": "",
-  "NEWSLETTER_FIRST_EDITION": ""
+  "NEWSLETTER_FIRST_EDITION": "",
+  "SPOTS_LEFT": "3"
 }
