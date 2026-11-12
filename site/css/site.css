@@ -582,3 +582,129 @@ p, li, figcaption, summary { text-wrap: pretty; }
 
 .plan-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin: 6px 0 0; }
 .on-green .lede { color: var(--papel-crema); }
+
+/* ===================== Round 5: mobile corrections ===================== */
+html { overflow-x: clip; }
+body { overflow-x: clip; }
+:root { --header-h: 77px; }
+@media (max-width: 860px) { :root { --gutter: 28px; } }
+
+/* Utilities */
+.blk { display: block; }
+@media (max-width: 860px) { .blk-m { display: block; } .hide-m { display: none !important; } }
+
+/* Header: compact logo (emblem + wordmark) and hamburger on small screens */
+.brand picture { display: block; }
+.burger { display: grid; gap: 5px; width: 24px; }
+.burger i { display: block; height: 2px; border-radius: 2px; background: var(--verde-botella); transition: transform .25s ease, opacity .2s ease; }
+.nav-toggle.is-open .burger i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open .burger i:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open .burger i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 900px) {
+  .brand img { width: auto; height: 34px; }
+  .nav-toggle { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 10px; margin-right: -10px; }
+}
+
+/* Newsletter form: never wider than its column */
+.subscribe-embed { max-width: min(560px, 100%); overflow: hidden; }
+.subscribe-embed .beehiiv-embed { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+.split > *, .page-head .wrap > *, .cta-final-grid > *, .notion-grid > * { min-width: 0; }
+
+/* Jigger flip next to "Built by a working bartender" */
+.proof span { min-width: 0; }
+.jigger-flip { animation: jigger-flip 6s ease-in-out infinite; }
+@keyframes jigger-flip {
+  0%, 30% { transform: translateY(0) rotate(0deg); }
+  38% { transform: translateY(-7px) rotate(90deg); }
+  46%, 80% { transform: translateY(0) rotate(180deg); }
+  88% { transform: translateY(-7px) rotate(270deg); }
+  96%, 100% { transform: translateY(0) rotate(360deg); }
+}
+
+/* Before / after: short labels on the image, the sentences underneath */
+.ba { margin-bottom: 0; }
+.ba figcaption { max-width: none; padding: 5px 12px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--bronce-texto); line-height: 1.3; }
+.ba-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 760px; margin: 14px auto 36px; font-size: 15px; }
+.ba-notes > * { min-width: 0; }
+.ba-notes p { margin: 0; }
+.ba-notes p:last-child { text-align: right; }
+.ba-notes b { display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--bronce-texto); }
+
+/* Demo card: breathing room above the footer line */
+.ficha-body { margin-bottom: 22px; }
+
+/* Offer card: one title, one price, one centred button */
+.plan-solo h3 { font-size: clamp(28px, 3vw, 36px); margin: 0 0 2px; }
+.plan-solo h3 em { font-style: italic; }
+.plan-solo .plan-price { margin: 0 0 16px; }
+.plan-actions { justify-content: center; margin-top: 10px; }
+
+/* Swipe cards, stacking cards, flip cards: phone only */
+.swipe-dots, .flip-hint { display: none; }
+@media (max-width: 860px) {
+  /* Hero */
+  .hero-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+  .hero-cta .btn { justify-content: center; }
+  .hero-cta .text-link { align-self: flex-start; }
+  .venue-art { padding: 104px 0 46px; max-width: none; }
+  .vf-card { left: 0; top: 0; width: 168px; }
+  .vf-chat { right: 0; top: 34px; max-width: 150px; }
+  .vf-chips { right: 4px; bottom: 6px; }
+
+  /* Swipe */
+  .swipe-m { display: flex; grid-template-columns: none; gap: 14px; max-width: none; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 8px var(--gutter) 6px; scroll-padding: 0 var(--gutter); }
+  .swipe-m::-webkit-scrollbar { display: none; }
+  .swipe-m > * { flex: 0 0 84%; scroll-snap-align: center; min-width: 0; }
+  .js .swipe-m > .reveal { opacity: 1; transform: none; }
+  .swipe-dots { display: flex; justify-content: center; gap: 6px; margin: 14px 0 0; }
+  .swipe-dots i { width: 7px; height: 7px; border-radius: 4px; background: var(--salvia); transition: width .2s ease, background-color .2s ease; }
+  .swipe-dots i.on { width: 20px; background: var(--verde-botella); }
+  .tiers.swipe-m { padding-top: 22px; margin-top: 0; }
+  .steps.swipe-m { margin-bottom: 0; }
+  .center-cta { margin-top: 26px; }
+  .num-card h3 { font-size: 22px; }
+
+  /* Stack */
+  .stack-m { display: block; }
+  .stack-m > * { position: sticky; top: calc(var(--header-h) + 14px); margin: 0 0 16px; box-shadow: 0 -12px 22px -18px rgba(28, 26, 23, .55), var(--shadow); }
+  .stack-m > :nth-child(2) { top: calc(var(--header-h) + 26px); }
+  .stack-m > :nth-child(3) { top: calc(var(--header-h) + 38px); }
+  .stack-m > :nth-child(4) { top: calc(var(--header-h) + 50px); }
+  .stack-m > :last-child { margin-bottom: 0; }
+  .js .stack-m > .reveal { opacity: 1; transform: none; }
+  .steps4.stack-m > li { background: var(--superficie); border: 1px solid var(--lino); border-radius: var(--radius); padding: 22px 24px; }
+  .steps4 .big-n { font-size: 56px; }
+
+  /* Flip */
+  .flip-m { display: grid; grid-template-columns: 1fr; align-items: stretch; perspective: 1400px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .flip-m > .flip-face { grid-area: 1 / 1; min-width: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(0deg); transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+  .flip-m > .flip-back { transform: rotateY(180deg); }
+  .flip-m.is-flipped > .flip-front { transform: rotateY(-180deg); }
+  .flip-m.is-flipped > .flip-back { transform: rotateY(0deg); }
+  .flip-hint { display: block; margin: auto 0 0; padding-top: 16px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--bronce-texto); }
+  .sample-before { display: flex; flex-direction: column; }
+  .sample-before .scrawl { margin: auto 0; }
+  .sample-grid.flip-m .ficha-art { display: none; }
+  .sample-grid.flip-m .sample-before { padding: 24px; }
+
+  /* Before / after notes and Notion phone */
+  .ba-notes { margin-bottom: 0; font-size: 14px; gap: 12px; }
+  .section.notion { padding-bottom: 0; }
+  .phone-wrap { place-items: start center; height: 410px; padding: 6px 0 0; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); }
+  .phone-page { top: 25%; }
+}
+
+/* Merch band on phones: everything centred, button full width */
+@media (max-width: 760px) {
+  .merch-grid { text-align: center; justify-items: center; }
+  .merch-figs { justify-content: center; }
+  .merch-grid .btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jigger-flip { animation: none; }
+  .burger i, .swipe-dots i, .flip-m > .flip-face { transition: none; }
+  .stack-m > * { position: static; }
+}
+
+.plans-more .text-link { white-space: nowrap; }

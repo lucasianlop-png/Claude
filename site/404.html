@@ -33,9 +33,12 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Off the Binder, home">
-      <img src="/assets/img/logo/logo-h-light-440.webp" srcset="/assets/img/logo/logo-h-light-440.webp 440w, /assets/img/logo/logo-h-light-880.webp 880w" sizes="200px" width="200" height="43" alt="Off the Binder. Bar systems, recipes.">
+      <picture>
+        <source media="(max-width: 900px)" srcset="/assets/img/logo/logo-compact.svg" width="428" height="76">
+        <img src="/assets/img/logo/logo-h-light-440.webp" srcset="/assets/img/logo/logo-h-light-440.webp 440w, /assets/img/logo/logo-h-light-880.webp 880w" sizes="200px" width="200" height="43" alt="Off the Binder. Bar systems, recipes.">
+      </picture>
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul>
         <li><a href="/system/" data-nav="system">The System</a></li>
@@ -60,7 +63,6 @@
   </div>
 </section>
 </main>
-<div class="sticky-cta" data-sticky-cta><a class="btn btn-primary" href="/venues/#quote" data-track="cta-primary">Have it built for you</a></div>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -98,6 +100,5 @@
     </div>
   </div>
 </footer>
-<script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 </body>
 </html>

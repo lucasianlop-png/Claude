@@ -2,14 +2,25 @@
 (function () {
   'use strict';
 
-  // Mobile menu
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobileQuery = window.matchMedia ? window.matchMedia('(max-width: 860px)') : { matches: false };
+  var isMobile = function () { return mobileQuery.matches; };
+  var onReady = function (fn) {
+    fn();
+    window.addEventListener('load', fn);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fn);
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fn, 150); });
+  };
+
+  // Mobile menu (hamburger)
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
       var open = nav.classList.toggle('is-open');
+      toggle.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.textContent = open ? 'Close' : 'Menu';
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
   }
 
@@ -20,7 +31,6 @@
 
   // Cards appear on scroll (CSS turns this off with prefers-reduced-motion)
   var reveals = document.querySelectorAll('.reveal');
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!('IntersectionObserver' in window) || reduce) {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   } else {
@@ -30,19 +40,6 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     reveals.forEach(function (el) { io.observe(el); });
-  }
-
-
-  // Sticky CTA on mobile: shows once the hero CTA scrolls away, hides at the final CTA
-  var sticky = document.querySelector('[data-sticky-cta]');
-  var heroCta = document.querySelector('[data-hero-cta]');
-  var join = document.getElementById('join');
-  if (sticky && 'IntersectionObserver' in window) {
-    var heroVisible = !!heroCta, joinVisible = false;
-    var update = function () { sticky.classList.toggle('is-on', !heroVisible && !joinVisible); };
-    if (heroCta) new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; update(); }).observe(heroCta);
-    if (join) new IntersectionObserver(function (e) { joinVisible = e[0].isIntersecting; update(); }).observe(join);
-    update();
   }
 
   // Before / after: the "after" image wipes over the "before" as you scroll
@@ -59,27 +56,37 @@
     onScroll();
   }
 
-  // Demo spec card: scale quantities, keep the 9-character quantity column
+  // Demo spec card: quantities roll to the new batch size, in a 9-character column
   var demo = document.querySelector('[data-demo]');
   if (demo) {
-    var base = [[60, 'ml', 'White Rum'], [30, 'ml', 'Lime Juice'], [20, 'ml', 'Sugar Syrup 1:1']];
+    var base = [[60, 'White Rum'], [30, 'Lime Juice'], [20, 'Sugar Syrup 1:1']];
     var pre = demo.querySelector('[data-spec]');
-    var fmt = function (q, u) {
-      if (u === 'ml' && q >= 1000) return (Math.round(q / 100) / 10) + 'L';
-      return q + u;
+    var current = 1, raf = null;
+    var fmt = function (ml) {
+      var q = ml >= 1000 ? (Math.round(ml / 100) / 10) + 'L' : Math.round(ml) + 'ml';
+      return (q + '         ').slice(0, 9);
+    };
+    var paint = function (n) {
+      pre.textContent = base.map(function (r) { return fmt(r[0] * n) + r[1]; }).join('\n');
     };
     demo.querySelectorAll('[data-serves]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var n = parseInt(btn.getAttribute('data-serves'), 10);
+        var to = parseInt(btn.getAttribute('data-serves'), 10), from = current;
         demo.querySelectorAll('[data-serves]').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
-        pre.textContent = base.map(function (r) {
-          var q = fmt(r[0] * n, r[1]);
-          return (q + '         ').slice(0, 9) + r[2];
-        }).join('\n');
+        current = to;
+        if (raf) cancelAnimationFrame(raf);
+        if (reduce || !window.requestAnimationFrame) { paint(to); return; }
+        var t0 = null, dur = 650;
+        var step = function (t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+          paint(from + (to - from) * e);
+          if (k < 1) raf = requestAnimationFrame(step); else paint(to);
+        };
+        raf = requestAnimationFrame(step);
       });
     });
   }
-
 
   // Animated phone: types a search, filters the list, opens the recipe page, loops
   var phone = document.querySelector('[data-phone]');
@@ -138,6 +145,86 @@
       } else { loop(); }
     }
   }
+
+  // Swipe cards (mobile): dots under the track, optional start card
+  document.querySelectorAll('[data-swipe]').forEach(function (track) {
+    var items = [].slice.call(track.children);
+    if (items.length < 2) return;
+    var dots = document.createElement('div');
+    dots.className = 'swipe-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    items.forEach(function () { dots.appendChild(document.createElement('i')); });
+    track.parentNode.insertBefore(dots, track.nextSibling);
+    var marks = [].slice.call(dots.children);
+    var update = function () {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, dist = Infinity;
+      items.forEach(function (it, i) {
+        var d = Math.abs(it.offsetLeft + it.offsetWidth / 2 - mid);
+        if (d < dist) { dist = d; best = i; }
+      });
+      marks.forEach(function (m, i) { m.classList.toggle('on', i === best); });
+    };
+    track.addEventListener('scroll', update, { passive: true });
+    var startSel = track.getAttribute('data-swipe-start'), placed = false;
+    onReady(function () {
+      if (!placed && startSel && isMobile() && track.scrollWidth > track.clientWidth) {
+        var start = track.querySelector(startSel);
+        if (start) { track.scrollLeft = start.offsetLeft - (track.clientWidth - start.offsetWidth) / 2; placed = true; }
+      }
+      update();
+    });
+  });
+
+  // Stacking cards (mobile): same height for every card so each one covers the last
+  document.querySelectorAll('[data-stack]').forEach(function (stack) {
+    var items = [].slice.call(stack.children);
+    onReady(function () {
+      items.forEach(function (it) { it.style.minHeight = ''; });
+      if (!isMobile()) return;
+      var h = 0;
+      items.forEach(function (it) { h = Math.max(h, it.offsetHeight); });
+      items.forEach(function (it) { it.style.minHeight = h + 'px'; });
+    });
+  });
+
+  // Flip cards (mobile): tap to turn the card over
+  document.querySelectorAll('[data-flip]').forEach(function (card) {
+    var flip = function () {
+      if (!isMobile()) return;
+      var on = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', on ? 'true' : 'false');
+    };
+    var setRole = function () {
+      if (isMobile()) {
+        card.setAttribute('role', 'button'); card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-pressed', card.classList.contains('is-flipped') ? 'true' : 'false');
+        card.setAttribute('aria-label', 'Flip the card');
+      } else {
+        card.classList.remove('is-flipped');
+        ['role', 'tabindex', 'aria-pressed', 'aria-label'].forEach(function (a) { card.removeAttribute(a); });
+      }
+    };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    onReady(setRole);
+  });
+
+  // Fit a heading line on one row (mobile): shrink the type a little, never below 26px
+  document.querySelectorAll('[data-fit]').forEach(function (el) {
+    var heading = el.closest('h1, h2, h3') || el;
+    onReady(function () {
+      heading.style.fontSize = ''; el.style.whiteSpace = '';
+      if (!isMobile()) return;
+      var box = heading.parentNode.clientWidth;
+      var size = parseFloat(getComputedStyle(heading).fontSize);
+      el.style.whiteSpace = 'nowrap';
+      var width = function () { return el === heading ? heading.scrollWidth : el.getBoundingClientRect().width; };
+      while (width() > box + 0.5 && size > 26) { size -= 1; heading.style.fontSize = size + 'px'; }
+      if (width() > box + 0.5) { heading.style.fontSize = ''; el.style.whiteSpace = ''; }
+    });
+  });
 
   // Products page: render the list from /data/products.js
   var grid = document.querySelector('[data-products]');

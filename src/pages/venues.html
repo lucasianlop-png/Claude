@@ -16,7 +16,7 @@ nav: venues
         <a class="btn btn-primary" href="#quote" data-track="cta-primary">Get a quote</a>
         <a class="btn btn-ghost" href="#sample">See a sample</a>
       </div>
-      <p class="proof"><img src="/assets/img/fig/jigger.png" width="12" height="30" alt=""> Built by Lucas, a bartender in Melbourne. Delivered in 7–10 days.</p>
+      <p class="proof"><img class="jigger-flip" src="/assets/img/fig/jigger.png" width="12" height="30" alt=""><span>Built by Lucas, a bartender in Melbourne. <span class="blk-m">Delivered in 7–10 days.</span></span></p>
     </div>
     <div class="hero-art venue-art">
       <img class="ill" src="/assets/img/ill/binder-800.webp" srcset="/assets/img/ill/binder-800.webp 800w, /assets/img/ill/binder-1400.webp 1024w" sizes="(max-width: 860px) 90vw, 45vw" width="800" height="800" alt="Linocut illustration: an open recipe binder, a spec card, a jigger and a cherry cocktail." fetchpriority="high">
@@ -62,9 +62,9 @@ nav: venues
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Sound familiar?</p>
-      <h2>The binder is not a system. <em>It's a hope.</em></h2>
+      <h2><span data-fit>The binder is not a system.</span> <em class="blk">It's a hope.</em></h2>
     </div>
-    <div class="cards">
+    <div class="cards swipe-m" data-swipe>
       <article class="card num-card reveal">
         <span class="num">01</span>
         <h3>Your best spec lives in a WhatsApp from 2023.</h3>
@@ -87,7 +87,7 @@ nav: venues
 <!-- 4. WHAT YOU GET -->
 <section class="section on-surface">
   <div class="wrap split">
-    <div class="split-art reveal">
+    <div class="split-art reveal hide-m">
       <img src="/assets/img/ill/tablet-800.webp" width="800" height="800" alt="Linocut illustration: a tablet showing a recipe list next to a cocktail on a bar." loading="lazy">
     </div>
     <div>
@@ -108,15 +108,16 @@ nav: venues
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Sample</p>
-      <h2>You send photos. <em>I send back a system.</em></h2>
+      <h2>You send photos. <em class="blk">I send back a system.</em></h2>
       <p class="lede">Same specs, before and after. Built with classic cocktails for a fictional venue.</p>
     </div>
-    <div class="sample-grid">
-      <div class="sample-before reveal">
+    <div class="sample-grid flip-m" data-flip>
+      <div class="flip-face flip-front sample-before">
         <p class="sample-label">Before</p>
         <p class="scrawl">daiquiri: 2oz rum? 1 lime, sugar to taste. Shake.<br>whisky sour 60 bourbon, 30 lemon (or 22.5??) egg, ask Sam<br><s>clover club 45 gin 15 rasp</s> new spec on WhatsApp</p>
+        <p class="flip-hint">Tap to see the after ↻</p>
       </div>
-      <article class="ficha reveal d1">
+      <article class="flip-face flip-back ficha">
         <div class="ficha-top"><p class="eyebrow">Spec · Classic</p><span class="ficha-no">No. 01</span></div>
         <h3>Daiquiri</h3>
         <img class="ficha-art" src="/assets/img/ill/daiquiri-800.webp" width="800" height="533" alt="Linocut illustration: a daiquiri in a coupe with a lime and a jigger." loading="lazy">
@@ -127,6 +128,7 @@ nav: venues
 20ml     Sugar Syrup 1:1</pre></div>
           <div class="ficha-meta"><p class="ficha-label small">Method</p><p>Shake</p><p class="ficha-label small">Glass</p><p>Coupe</p><p class="ficha-label small">Garnish</p><p>None</p></div>
         </div>
+        <p class="flip-hint">Tap to see the before ↻</p>
       </article>
     </div>
   </div>
@@ -139,7 +141,7 @@ nav: venues
       <p class="eyebrow">How it works</p>
       <h2>Four steps. <em>About a week.</em></h2>
     </div>
-    <ol class="steps4">
+    <ol class="steps4 stack-m" data-stack>
       <li class="reveal"><span class="big-n">1</span><h3>Snap it</h3><p>Photograph every binder page and export the chats. Ten minutes, tops.</p></li>
       <li class="reveal d1"><span class="big-n">2</span><h3>I build it</h3><p>AI does the typing, I check every spec like it's going on my own bar.</p></li>
       <li class="reveal d2"><span class="big-n">3</span><h3>You confirm</h3><p>Anything unclear comes to you in one message. You answer once.</p></li>
@@ -156,7 +158,7 @@ nav: venues
       <h2>One price. Your account. <em>No subscription.</em></h2>
       {{#if SPOTS_LEFT}}<p class="lede">Portfolio rate for the first 3 bars only. <b class="spots">{{v:SPOTS_LEFT}} of 3 spots left.</b></p>{{/if}}
     </div>
-    <div class="tiers">
+    <div class="tiers swipe-m" data-swipe data-swipe-start=".tier-main">
       <article class="tier reveal">
         <h3>Spec Clean-Up</h3>
         <p class="tier-price">A$149</p>
