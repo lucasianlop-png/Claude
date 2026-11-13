@@ -708,3 +708,9 @@ body { overflow-x: clip; }
 }
 
 .plans-more .text-link { white-space: nowrap; }
+
+/* Quote box without the form: email request */
+.enquiry-box h3 { color: var(--verde-botella); margin: 0 0 12px; }
+.enquiry-box .diamonds { margin-bottom: 18px; }
+.enquiry-box .diamonds li { color: var(--tinta); }
+.enquiry-mail { margin: 12px 0 0; font-family: var(--font-spec); font-size: 14px; color: var(--humo); user-select: all; }

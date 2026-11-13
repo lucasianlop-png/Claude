@@ -220,14 +220,20 @@ nav: venues
     <div>
       <h2>Summer menu still in the <em>binder?</em></h2>
       <p class="lede">Tell me about your bar and I'll reply within a day with a fixed quote. No calls needed unless you want one.</p>
-      <p class="cta-final-alt">Or email <a class="text-link on-dark" href="mailto:hello@offthebinder.com?subject=Quote%20request">hello@offthebinder.com</a></p>
+      {{#if TALLY_FORM_ID}}<p class="cta-final-alt">Or email <a class="text-link on-dark" href="mailto:hello@offthebinder.com?subject=Quote%20request">hello@offthebinder.com</a></p>{{/if}}
     </div>
     <div class="enquiry-box">
       {{#if TALLY_FORM_ID}}
       <iframe src="https://tally.so/embed/{{v:TALLY_FORM_ID}}?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="520" frameborder="0" title="Quote request form"></iframe>
       {{else}}
-      <p>The quote form goes here: {{v:TALLY_FORM_ID}}</p>
-      <a class="btn btn-bronze" href="mailto:hello@offthebinder.com?subject=Quote%20request">Email me instead</a>
+      <h3>Email me three things</h3>
+      <ul class="diamonds">
+        <li>Your bar's name and suburb.</li>
+        <li>Roughly how many drinks and preps.</li>
+        <li>The package you're looking at.</li>
+      </ul>
+      <a class="btn btn-bronze" href="mailto:hello@offthebinder.com?subject=Quote%20request&amp;body=Bar%20and%20suburb%3A%0D%0ARoughly%20how%20many%20drinks%20and%20preps%3A%0D%0APackage%20I%27m%20looking%20at%3A%0D%0A" data-track="quote-email">Email my quote request</a>
+      <p class="enquiry-mail">hello@offthebinder.com</p>
       {{/if}}
     </div>
   </div>
