@@ -722,3 +722,8 @@ body { overflow-x: clip; }
 #subscribe { scroll-margin-top: 110px; }
 .on-green .btn-ghost { border-color: var(--papel-crema); color: var(--papel-crema); }
 .on-green .btn-ghost:hover { background: rgba(243, 234, 219, .12); }
+
+/* Tally quote form inside the enquiry box */
+.enquiry-box iframe { display: block; width: 100%; max-width: 100%; border: 0; }
+.enquiry-fallback { margin: 10px 0 0; font-size: 13px; color: var(--humo); }
+.enquiry-fallback a { color: var(--verde-botella); font-weight: 700; text-decoration-color: var(--bronce); text-underline-offset: 3px; }
