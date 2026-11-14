@@ -16,7 +16,8 @@ nav: newsletter
 Template features (pages and partials):
   {{> name}}                 include src/partials/name.html
   {{v:NAME}}                 value from src/config.json; empty -> visible [NAME] placeholder
-  {{#if flag}}A{{else}}B{{/if}}   flags: waitlist, on_sale, or any config key that is non-empty
+  {{#if flag}}A{{else}}B{{/if}}   flags: waitlist, on_sale, any config key that is non-empty,
+                             or a name listed in the page's own "flags:" meta line
 """
 import json
 import pathlib
@@ -111,7 +112,10 @@ def main():
             .replace("{{robots}}", meta.get("robots", "index, follow"))
             + h + "\n<main id=\"main\">\n" + body + "\n</main>\n" + footer
         )
-        html = render(html, cfg, flags)
+        page_flags = dict(flags)
+        for name in meta.get("flags", "").split():
+            page_flags[name] = True
+        html = render(html, cfg, page_flags)
         if path == "/404":
             target = OUT / "404.html"
         else:

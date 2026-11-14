@@ -714,3 +714,11 @@ body { overflow-x: clip; }
 .enquiry-box .diamonds { margin-bottom: 18px; }
 .enquiry-box .diamonds li { color: var(--tinta); }
 .enquiry-mail { margin: 12px 0 0; font-family: var(--font-spec); font-size: 14px; color: var(--humo); user-select: all; }
+
+/* beehiiv form (official loader): whatever it injects stays inside its column */
+.subscribe-embed { min-height: 120px; }
+.subscribe-embed > *, .subscribe-embed iframe { max-width: 100% !important; min-width: 0 !important; }
+.subscribe-embed iframe { width: 100% !important; border: 0; }
+#subscribe { scroll-margin-top: 110px; }
+.on-green .btn-ghost { border-color: var(--papel-crema); color: var(--papel-crema); }
+.on-green .btn-ghost:hover { background: rgba(243, 234, 219, .12); }

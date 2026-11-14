@@ -7,8 +7,13 @@
       <p>{{> cta-button}}</p>
     </div>
     <div>
+      {{#if single_form}}
+      <p class="cta-final-alt"><b>Not ready yet?</b> The free weekly newsletter comes with the Recipe system audit checklist.</p>
+      <p><a class="btn btn-ghost" href="#subscribe">Back to the sign-up form ↑</a></p>
+      {{else}}
       <p class="cta-final-alt"><b>Not ready yet?</b> Get the free weekly newsletter and the Recipe system audit checklist.</p>
       {{> subscribe}}
+      {{/if}}
     </div>
   </div>
 </section>
