@@ -727,3 +727,15 @@ body { overflow-x: clip; }
 .enquiry-box iframe { display: block; width: 100%; max-width: 100%; border: 0; }
 .enquiry-fallback { margin: 10px 0 0; font-size: 13px; color: var(--humo); }
 .enquiry-fallback a { color: var(--verde-botella); font-weight: 700; text-decoration-color: var(--bronce); text-underline-offset: 3px; }
+
+/* ===================== Round 6: phone scroll and form fixes ===================== */
+/* Phones: no elastic stretch past the ends of the page (the blank band under the footer) or sideways.
+   Touch screens only, so the trackpad swipe-back on laptops keeps working. */
+@media (hover: none) and (pointer: coarse) {
+  html, body { overscroll-behavior: none; }
+}
+
+/* The beehiiv form brings 18px of its own padding. On green sections its box is the same green as
+   the background, so pull it out to line the field up with the text and the button above it. */
+.on-green .subscribe-embed { margin-inline: -18px; max-width: min(596px, calc(100% + 36px)); }
+.on-green .subscribe-embed .subscribe-fallback { margin-inline: 18px; }

@@ -2,6 +2,14 @@
 (function () {
   'use strict';
 
+  // iPhone and iPad zoom the page in when a form field's text is under 16px (the embedded forms
+  // decide that size, not this site) and never zoom back out, which leaves the page a little
+  // too wide and draggable sideways. Capping the scale stops the automatic zoom; pinch zoom
+  // still works there. Other phones don't auto-zoom, so their viewport is left alone.
+  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var viewport = document.querySelector('meta[name="viewport"]');
+  if (isIOS && viewport) viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1');
+
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mobileQuery = window.matchMedia ? window.matchMedia('(max-width: 860px)') : { matches: false };
   var isMobile = function () { return mobileQuery.matches; };
