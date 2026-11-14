@@ -13,6 +13,8 @@ path: /newsletter/
 nav: newsletter
 -->
 
+Links to other sites get target="_blank" automatically; links inside the site do not.
+
 Template features (pages and partials):
   {{> name}}                 include src/partials/name.html
   {{v:NAME}}                 value from src/config.json; empty -> visible [NAME] placeholder
@@ -78,6 +80,33 @@ def no_widows(html):
     return WIDOW_RE.sub(lambda m: "\u00a0" + m.group(1) + m.group(2), html)
 
 
+EXT_LINK_RE = re.compile(r'<a\b([^>]*?href="https?://([^"/]+)[^"]*"[^>]*)>(.*?)</a>', re.S)
+OWN_HOSTS = {"offthebinder.com", "www.offthebinder.com"}
+NEW_TAB_NOTE = '<span class="sr-only"> (opens in a new tab)</span>'
+
+
+def external_links(html):
+    """Links that leave the site open in a new tab; links inside the site stay in the same tab."""
+    def fix(m):
+        attrs, host, inner = m.group(1), m.group(2).lower(), m.group(3)
+        if host in OWN_HOSTS:
+            return m.group(0)
+        if "target=" not in attrs:
+            attrs += ' target="_blank"'
+        rel = re.search(r'rel="([^"]*)"', attrs)
+        if rel:
+            vals = rel.group(1).split()
+            if "noopener" not in vals:
+                vals.append("noopener")
+            attrs = attrs.replace(rel.group(0), 'rel="' + " ".join(vals) + '"')
+        else:
+            attrs += ' rel="noopener"'
+        if NEW_TAB_NOTE not in inner:
+            inner += NEW_TAB_NOTE
+        return "<a" + attrs + ">" + inner + "</a>"
+    return EXT_LINK_RE.sub(fix, html)
+
+
 def parse(text):
     m = META_RE.match(text)
     meta = {}
@@ -115,7 +144,7 @@ def main():
         page_flags = dict(flags)
         for name in meta.get("flags", "").split():
             page_flags[name] = True
-        html = render(html, cfg, page_flags)
+        html = external_links(render(html, cfg, page_flags))
         if path == "/404":
             target = OUT / "404.html"
         else:

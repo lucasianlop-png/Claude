@@ -254,7 +254,7 @@
       if (p.blurb) body.appendChild(el('p', {}, p.blurb));
       if (p.affiliate) body.appendChild(el('p', { 'class': 'muted', style: 'font-size:13px' }, 'Affiliate link: I may earn a commission if you buy, at no extra cost to you.'));
       var rel = p.affiliate ? 'sponsored noopener' : 'noopener';
-      body.appendChild(el('a', { 'class': 'btn btn-primary', href: p.url, rel: rel }, 'Buy on ' + (p.platform || 'the shop') + ' ↗'));
+      body.appendChild(el('a', { 'class': 'btn btn-primary', href: p.url, rel: rel, target: '_blank' }, 'Buy on ' + (p.platform || 'the shop') + ' ↗'));
       card.appendChild(body);
       grid.appendChild(card);
     });
